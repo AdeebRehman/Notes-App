@@ -6,17 +6,14 @@ import Notes from "./Components/Notes";
 import Footer from "./Components/Footer";
 import "./index.css";
 import notes from "./notes.js"
+import CreateArea from "./Components/CreateArea.jsx";
 function App() {
-  // function createNote(notesItem) {
-  //   return (<Notes
-  //     key={notesItem.key}
-  //     title={notesItem.title}
-  //     content={notesItem.content}
-  //   ></Notes>)
-  // }
   return (
     <div>
       <Header ></Header>
+      <CreateArea>
+      </CreateArea>
+
       {notes.map(notesItem => (
         <Notes
           key={notesItem.key}
@@ -29,4 +26,3 @@ function App() {
   )
 }
 export default App;
-
