@@ -5,11 +5,22 @@ import Header from "./Components/Header";
 import Notes from "./Components/Notes";
 import Footer from "./Components/Footer";
 import "./index.css";
-import notes from "./notes.js"
+
 import CreateArea from "./Components/CreateArea.jsx";
 function App() {
+  const [notes,setNotes]=useState([])
   function addNote(note){
-    return
+    setNotes(prevNotes=>{
+      return [...prevNotes,note];
+    })
+  }
+
+  function deleteNode(id){
+    setNotes(prevNotes=>{
+      return prevNotes.filter((noteItem,index)=>{
+        return index!==id;
+      })
+    })
   }
   return (
     <div>
@@ -18,14 +29,12 @@ function App() {
       onAdd={addNote}
       >
       </CreateArea>
-        <Notes
-        key={1}
-          title="This is title"
-          content="thiss is content"
-        ></Notes>
+      {notes.map((noteItem,index) => {
+        return <Notes key={index} id={index} title={noteItem.title} content={noteItem.content} onDelete={deleteNode}/>
+      })}
 
       <Footer></Footer>
     </div>
-  )
+  );
 }
 export default App;
