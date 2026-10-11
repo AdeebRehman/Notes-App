@@ -1,5 +1,5 @@
-
-import React,{useState} from "react";
+import axios from "axios";
+import React,{useState,useEffect} from "react";
 import reactDom from "react-dom";
 import Header from "./Components/Header";
 import Notes from "./Components/Notes";
@@ -9,6 +9,19 @@ import "./index.css";
 import CreateArea from "./Components/CreateArea.jsx";
 function App() {
   const [notes,setNotes]=useState([])
+  useEffect(() => {
+  async function fetchNotes() {
+    try {
+      const response = await axios.get("http://localhost:3000/notes");
+      setNotes(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  fetchNotes();
+}, []);
+
+
   function addNote(note){
     setNotes(prevNotes=>{
       return [...prevNotes,note];
