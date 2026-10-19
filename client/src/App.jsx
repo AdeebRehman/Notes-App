@@ -50,12 +50,22 @@ async function deleteNode(id){
     
   }
 }
-
-// async function patchNode(id){
-//   try{
+async function editNode(id,updatedNote) {
+  try{
+    const response=await axios.patch(`${url}/${id}`,updatedNote);
+    setNotes(prevNotes => {
+      return prevNotes.map(noteItem => {
+        return noteItem.id === id ? response.data : noteItem;
+      });
+    });
     
-//   }
-// }
+  }
+  catch(err){
+    console.error(err);
+  }
+  
+}
+
 
   return (
     <div>
@@ -65,7 +75,7 @@ async function deleteNode(id){
       >
       </CreateArea>
       {notes.map((noteItem,index) => {
-        return <Notes key={noteItem.id} id={noteItem.id} title={noteItem.title} content={noteItem.content} onDelete={deleteNode}/>
+        return <Notes key={noteItem.id} id={noteItem.id} title={noteItem.title} content={noteItem.content} onDelete={deleteNode} onEdit={editNode}/>
       })}
 
       <Footer></Footer>

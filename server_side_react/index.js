@@ -65,8 +65,9 @@ app.delete("/notes/:id", async (req, res) => {
     // console.log(countRow.rowCount)
     if (countRow.rowCount === 0) {
       return res.status(404).send("No such note exists");
+      
     }
-    res.sendStatus(204);
+     res.sendStatus(204);
   }
   catch (err) {
     console.error(err);
@@ -92,6 +93,7 @@ if (!title || !title.trim() || !content || !content.trim()) {
     if (result.rowCount === 0) {
       return res.status(404).send("NO such note")
     }
+    res.json(result.rows[0]);
     
   }
   catch(err){
